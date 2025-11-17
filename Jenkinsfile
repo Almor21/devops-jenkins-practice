@@ -13,6 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                sh 'docker --version'
                 checkout scm
                 script {
                     echo "Branch actual: ${env.BRANCH_NAME}"
