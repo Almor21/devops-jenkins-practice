@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node-docker-agent'
+            args '--user root --privileged -v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     environment {
         APP_NAME = "devops-jenkins-practice"
@@ -10,7 +15,7 @@ pipeline {
             steps {
                 checkout scm
                 script {
-                    echo "Branch actual: ${env.BRANCH_NAME}"
+                    echo "Actual Branch: ${env.BRANCH_NAME}"
                 }
             }
         }
@@ -26,7 +31,7 @@ pipeline {
                         env.APP_PORT = "4000"
                     }
 
-                    echo "Puerto asignado: ${env.APP_PORT}"
+                    echo "Port: ${env.APP_PORT}"
                 }
             }
         }
@@ -40,7 +45,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'npm test || true'  // por si no hay tests
+                sh 'npm test || true'
             }
         }
 
