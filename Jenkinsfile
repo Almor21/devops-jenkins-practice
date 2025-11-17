@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'node:18'
-            args '-p 3000:3000 -p 3001:3001 --user root --privileged -v /var/run/docker.sock:/var/run/docker.sock'
+            image 'node-docker-agent'
+            args '-p 3000:3000 -p 3001:3001 -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -13,10 +13,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sh 'docker --version'
                 checkout scm
                 script {
-                    echo "Branch actual: ${env.BRANCH_NAME}"
+                    echo "Actual Branch: ${env.BRANCH_NAME}"
                 }
             }
         }
@@ -32,7 +31,7 @@ pipeline {
                         env.APP_PORT = "4000"
                     }
 
-                    echo "Puerto asignado: ${env.APP_PORT}"
+                    echo "Port: ${env.APP_PORT}"
                 }
             }
         }
@@ -46,7 +45,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'npm test || true'  // por si no hay tests
+                sh 'npm test || true'
             }
         }
 
