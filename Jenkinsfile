@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:18'
-            args '-p 3000:3000 -p 3001:3001'
+            args '-p 3000:3000 -p 3001:3001 --user root --privileged -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
