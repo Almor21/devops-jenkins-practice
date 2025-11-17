@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18'
+            args '-p 3000:3000 -p 3001:3001'
+        }
+    }
 
     environment {
         APP_NAME = "devops-jenkins-practice"
