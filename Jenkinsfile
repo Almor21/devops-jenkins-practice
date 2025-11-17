@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node-docker-agent'
+            image 'node-docker-agent' // Custom image with node and docker cli installed
             args '--user root --privileged -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
