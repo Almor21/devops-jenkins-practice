@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node-docker-agent'
-            args '-p 3000:3000 -p 3001:3001 --user root --privileged -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--user root --privileged -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
